@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using Workers.DAL.Comparers;
+using Workers.DAL.Converters;
 using Workers.DAL.Models;
 
 namespace Workers.DAL;
@@ -18,5 +20,11 @@ public class AppContext : DbContext
         var checkConstraintSql = $"{nameof(Position.Grade)} > 0 AND {nameof(Position.Grade)} < 16";
         modelBuilder.Entity<Position>()
             .HasCheckConstraint(nameof(Position.Grade), checkConstraintSql);
+
+        modelBuilder.Entity<Employee>(builder =>
+        {
+            builder.Property(x => x.DateOfBirth)
+                .HasConversion<DateOnlyConverter, DateOnlyComparer>();
+        });
     }
 }
