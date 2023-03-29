@@ -26,5 +26,14 @@ public class AppContext : DbContext
             builder.Property(x => x.DateOfBirth)
                 .HasConversion<DateOnlyConverter, DateOnlyComparer>();
         });
+        
+        modelBuilder.Entity<Employee>()
+            .HasMany(t => t.Positions)
+            .WithMany(s => s.Employees)
+            .UsingEntity<Dictionary<string, object>>(
+                "EmployeePosition",
+                x => x.HasOne<Position>().WithMany().OnDelete(DeleteBehavior.Restrict),
+                x => x.HasOne<Employee>().WithMany().OnDelete(DeleteBehavior.Cascade)
+            );
     }
 }
