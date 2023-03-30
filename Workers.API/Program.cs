@@ -18,7 +18,7 @@ using AppContext = Workers.DAL.AppContext;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddTransient<IDesignTimeDbContextFactory<AppContext>>(x =>
-    new AppContextFactory(builder.Configuration.GetConnectionString("Workers"),
+    new AppContextFactory(builder.Configuration.GetValue<string>("DB_CONNECTION_STRING"),
         x.GetService<ILoggerFactory>()));
 builder.Services.AddScoped(x =>
     x.GetService<IDesignTimeDbContextFactory<AppContext>>().CreateDbContext(new[] { "" }));

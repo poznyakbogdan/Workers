@@ -22,7 +22,7 @@ services:
     links:
       - db
     environment:
-      ConnectionStrings:Workers: server=db;uid=root;database=workers;pwd={ROOT_PASSWORD};
+      DB_CONNECTION_STRING: server=db;uid=root;database=workers;pwd={ROOT_PASSWORD};
       ASPNETCORE_URLS: http://0.0.0.0:5193
       ASPNETCORE_ENVIRONMENT: Development
     ports:
