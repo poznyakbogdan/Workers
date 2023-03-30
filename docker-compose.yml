@@ -1,0 +1,33 @@
+version: "3.9"
+services:
+  db:
+    image: mysql:8.0
+    cap_add:
+      - SYS_NICE
+    restart: always
+    environment:
+      - MYSQL_DATABASE=workers
+      - MYSQL_ROOT_PASSWORD={ROOT_PASSWORD}
+    ports:
+      - '3306:3306'
+    volumes:
+      - db:/var/lib/mysql
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    links:
+      - db
+    environment:
+      ConnectionStrings:Workers: server=db;uid=root;database=workers;pwd={ROOT_PASSWORD};
+      ASPNETCORE_URLS: http://0.0.0.0:5193
+      ASPNETCORE_ENVIRONMENT: Development
+    ports:
+      - "5193:5193"
+
+volumes:
+  db:
+    driver: local
