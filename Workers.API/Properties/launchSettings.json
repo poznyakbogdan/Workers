@@ -14,7 +14,8 @@
       "launchBrowser": true,
       "applicationUrl": "https://localhost:7254;http://localhost:5154",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ConnectionStrings:Workers": "server=localhost;uid=root;database=workers;pwd={ROOT_PASSWORD}"
       }
     },
     "IIS Express": {
