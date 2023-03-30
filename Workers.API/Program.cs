@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.OpenApi.Models;
 using MySql.EntityFrameworkCore.Extensions;
+using Serilog;
 using Workers.Abstractions;
 using Workers.API;
 using Workers.API.Converters;
@@ -47,6 +48,11 @@ builder.Services.AddScoped<IEmployeesService, EmployeesService>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+Log.Logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .CreateBootstrapLogger();
+
+builder.Host.UseSerilog();
 var app = builder.Build();
 
 app.UseCors(x => x
