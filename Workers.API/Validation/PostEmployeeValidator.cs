@@ -13,6 +13,8 @@ public class PostEmployeeValidator : AbstractValidator<PostEmployee>
         RuleFor(x => x.SecondName).NotEmpty().MaximumLength(64);
         RuleFor(x => x.DateOfBirth).NotEmpty();
         RuleFor(x => x.PositionsId)
+            .Must(x => x.Distinct().Count() == x.Count)
+            .WithMessage("Positions id duplications are not allowed")
             .Must((_, positionsId, context) =>
             {
                 var (ok, notExist) = positionsService.Exists(positionsId);
