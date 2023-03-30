@@ -10,6 +10,7 @@ docker compose build
 ```bash
 docker compose up
 ```
+4. Open in browser http://localhost:5193/swagger
 ## Run on local env with `dotnet`
 1. Set env variables
 ```bash
@@ -27,11 +28,12 @@ export ASPNETCORE_ENVIRONMENT=Development
 ```bash 
 dotnet restore
 ```
-2. Build API
+3. Build API
 ```bash 
 dotnet build -o build Workers.API/Workers.API.csproj 
 ```
-2. Run
+4. Run
 ```bash 
 cd build && dotnet Workers.API.dll
 ```
+5. Open in browser http://localhost:5000/swagger
