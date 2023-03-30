@@ -18,7 +18,6 @@ public class AppContextFactory : IDesignTimeDbContextFactory<AppContext>
     {
         var builder = new DbContextOptionsBuilder();
         builder
-            .EnableSensitiveDataLogging()
             .UseLoggerFactory(_loggerFactory)
             .UseMySQL(_connectionString);
         return new AppContext(builder.Options);
